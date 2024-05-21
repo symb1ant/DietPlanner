@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using DietPlanner.Data;
+using DietPlanner.Data.Models;
 
 namespace DietPlanner.Components.Account;
 

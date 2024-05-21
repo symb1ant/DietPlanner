@@ -5,7 +5,9 @@ using DietPlanner.Client.Pages;
 using DietPlanner.Components;
 using DietPlanner.Components.Account;
 using DietPlanner.Data;
+using DietPlanner.Data.Models;
 using MudBlazor.Services;
+
 
 namespace DietPlanner;
 
@@ -39,7 +41,7 @@ public class Program
             options.UseSqlite(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddSignInManager()
             .AddDefaultTokenProviders();

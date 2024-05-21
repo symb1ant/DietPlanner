@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using DietPlanner.Components.Account.Pages;
 using DietPlanner.Components.Account.Pages.Manage;
-using DietPlanner.Data;
+using DietPlanner.Data.Models;
 
 namespace Microsoft.AspNetCore.Routing;
 
