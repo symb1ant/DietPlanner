@@ -7,14 +7,11 @@
     <UserSecretsId>aspnet-DietPlanner-ff302203-66a9-4f7b-94be-8cc1d58fbb21</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-  </ItemGroup>
-
   
   
   <ItemGroup>
     <ProjectReference Include="..\DietPlanner.Client\DietPlanner.Client.csproj" />
+    <ProjectReference Include="..\DietPlanner.Data\DietPlanner.Data.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.*" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.*" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.*" />

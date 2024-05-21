@@ -1,10 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.0.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{332C4C02-5C33-4E5A-896E-14D010FA6AF2}") = "DietPlanner", "DietPlanner\DietPlanner.csproj", "{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner", "DietPlanner\DietPlanner.csproj", "{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}"
 EndProject
-Project("{332C4C02-5C33-4E5A-896E-14D010FA6AF2}") = "DietPlanner.Client", "DietPlanner.Client\DietPlanner.Client.csproj", "{FD1F3E2A-3425-44D0-86FF-986E5E665414}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner.Client", "DietPlanner.Client\DietPlanner.Client.csproj", "{FD1F3E2A-3425-44D0-86FF-986E5E665414}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietPlanner.Data", "DietPlanner.Data\DietPlanner.Data.csproj", "{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,18 @@ Global
 		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|x64.Build.0 = Release|Any CPU
 		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|x86.ActiveCfg = Release|Any CPU
 		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|x86.Build.0 = Release|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|x64.Build.0 = Debug|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Release|x64.ActiveCfg = Release|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Release|x64.Build.0 = Release|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
