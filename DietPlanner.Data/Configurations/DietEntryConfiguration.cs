@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DietPlanner.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DietPlanner.Data.Configurations;
 partial class DietEntryConfiguration : IEntityTypeConfiguration<Models.DietEntry>
@@ -17,5 +18,16 @@ partial class DietEntryConfiguration : IEntityTypeConfiguration<Models.DietEntry
         builder.Property(br => br.Date)
             .IsRequired()
             .HasDefaultValueSql("GETDATE()");
+
+        builder.HasOne(a => a.User)
+            .WithMany(u => u.DietEntries)
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(a => a.MealType)
+            .WithMany(mt => mt.DietEntries)
+            .HasForeignKey(a => a.MealTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

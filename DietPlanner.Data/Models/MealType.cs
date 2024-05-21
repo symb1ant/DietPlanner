@@ -9,4 +9,5 @@ public class MealType
 {
     public long Id { get; set; }
     public string Name { get; set; }
+    public ICollection<DietEntry> DietEntries { get; set; }
 }

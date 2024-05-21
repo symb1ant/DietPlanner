@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DietPlanner.Data.Models;
 
-// Add profile data for application users by adding properties to the ApplicationUser class
 public class ApplicationUser : IdentityUser
 {
+    public ICollection<DietEntry> DietEntries { get; set; }
 }
 

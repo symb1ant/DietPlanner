@@ -3,6 +3,7 @@ using System;
 using DietPlanner.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DietPlanner.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240521141801_specifyidobjects")]
+    partial class specifyidobjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
@@ -284,9 +287,9 @@ namespace DietPlanner.Migrations
             modelBuilder.Entity("DietPlanner.Data.Models.DietEntry", b =>
                 {
                     b.HasOne("DietPlanner.Data.Models.MealType", "MealType")
-                        .WithMany("DietEntries")
+                        .WithMany()
                         .HasForeignKey("MealTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DietPlanner.Data.Models.ApplicationUser", "User")
@@ -352,11 +355,6 @@ namespace DietPlanner.Migrations
                 });
 
             modelBuilder.Entity("DietPlanner.Data.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("DietEntries");
-                });
-
-            modelBuilder.Entity("DietPlanner.Data.Models.MealType", b =>
                 {
                     b.Navigation("DietEntries");
                 });

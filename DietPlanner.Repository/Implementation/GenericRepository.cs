@@ -1,5 +1,6 @@
 ﻿using DietPlanner.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DietPlanner.Repository.Implementation;
 public class GenericRepository<T, TContext> : IRepository<T> where T : class where TContext: DbContext
@@ -29,7 +30,17 @@ public class GenericRepository<T, TContext> : IRepository<T> where T : class whe
         return await _dbSet.ToListAsync();
     }
 
+    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbSet.Where(predicate).ToListAsync();
+    }
+
     public async Task<T> GetByIDAsync(long id)
+    {
+        return await _dbSet.FindAsync(id);
+    }
+
+    public async Task<T> GetByIDAsync(string id)
     {
         return await _dbSet.FindAsync(id);
     }

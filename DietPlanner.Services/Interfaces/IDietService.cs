@@ -8,6 +8,7 @@ public interface IDietService
     Task<bool> DeleteEntry(DeleteEntry entry);
     Task<List<ViewDietEntry>> GetEntries(string userId);
     Task<ViewDietEntry> GetEntry(int id);
-    Task<List<ViewDietEntry>> GetEntriesByDate(string userId, DateTime date);
-    Task<ViewDietSummary> GetSummaryByDate(string userId, DateTime date);
+    Task<List<ViewDietEntry>> GetEntriesByDate(string userId, DateTime date);    
+    Task<List<ViewDietSummary>> GetSummaryByDate(string userId, DateTime date);
+    Task<List<ViewDietSummary>> GetSummaryByUser(string userId);
 }
