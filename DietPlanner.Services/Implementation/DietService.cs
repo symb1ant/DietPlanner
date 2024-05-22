@@ -2,6 +2,7 @@
 using DietPlanner.Data.Models;
 using DietPlanner.Data.Interfaces;
 using DietPlanner.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DietPlanner.Services.Implementation;
 public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository<ApplicationUser> userRepository) : IDietService
@@ -51,7 +52,7 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
 
     public async Task<List<ViewDietEntry>> GetEntries(string userId)
     {
-        var entries = await dietEntryRepository.GetAllAsync(x => x.UserId == userId);
+        var entries = await dietEntryRepository.GetAllAsync(x => x.UserId == userId, include: x => x.Include(e => e.MealType));
 
         return entries.Select(x => new ViewDietEntry
         {
@@ -62,22 +63,21 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
             MealName = x.MealType.Name.ToString()
 
         }).OrderByDescending(x => x.Date).ToList();
-
     }
 
     public async Task<List<ViewDietEntry>> GetEntriesByDate(string userId, DateTime date)
     {
-        var startDate = date.Date.Date;
+        var startDate = date.Date;
         var endDate = date.Date.AddDays(1).AddSeconds(-1);
 
-        var entries = await dietEntryRepository.GetAllAsync(x => x.UserId == userId && x.Date >= startDate && x.Date <= endDate);
+        var entries = await dietEntryRepository.GetAllAsync(x => x.UserId == userId && x.Date >= startDate && x.Date <= endDate, include: x=> x.Include(e => e.MealType));
 
         return entries.OrderBy(x => x.Date).Select(x => new ViewDietEntry
         {
             ID = x.Id,
             FoodName = x.Food,
             Calories = x.Calories,
-            Date = x.Date,
+            Date = x.Date,            
             MealName = x.MealType.Name.ToString()
 
         }).ToList();
@@ -85,7 +85,7 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
 
     public async Task<ViewDietEntry> GetEntry(int id)
     {
-        var entry = await dietEntryRepository.GetByIDAsync(id);
+        var entry = await dietEntryRepository.GetByIDAsync(id, include: x => x.Include(e => e.MealType));
 
         return new ViewDietEntry
         {
@@ -93,6 +93,7 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
             FoodName = entry.Food,
             Calories = entry.Calories,
             Date = entry.Date,
+            MealTypeId = entry.MealTypeId,
             MealName = entry.MealType.Name.ToString()
         };
     }

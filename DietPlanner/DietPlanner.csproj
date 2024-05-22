@@ -19,4 +19,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.*" />
   </ItemGroup>
 
+  
+  
+  <ItemGroup>
+    <Content Update="Components\Account\Pages\Info.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>

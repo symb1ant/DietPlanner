@@ -1,0 +1,62 @@
+﻿@page "/Account/Info"
+
+@using DietPlanner.Data.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+@attribute [Authorize]
+
+<PageTitle>Auth</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">You are authenticated</MudText>
+
+<AuthorizeView>
+
+    <Authorized>
+
+        @if (user != null)
+        {
+            <p>First Name: @user.FirstName</p>
+            <p>Surname: @user.LastName</p>
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
+
+        @* <p> *@
+@*             User ID: @context.User.Claims.FirstOrDefault(p => p.Type == "nameidentifier").Value</p> *@
+
+
+        @foreach (var item in context.User.Claims)
+        {
+            <p>
+                <b>@item.Type.ToString()</b> : @item.Value
+
+            </p>
+        }
+
+
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private ApplicationUser user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userId = authState.User?.Identity?.Name;
+
+        if (userId != null)
+        {
+            user = await UserManager.FindByNameAsync(userId);
+        }
+    }
+}

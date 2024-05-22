@@ -1,6 +1,0 @@
-@DietPlanner.API_HostAddress = http://localhost:5068
-
-GET {{DietPlanner.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
