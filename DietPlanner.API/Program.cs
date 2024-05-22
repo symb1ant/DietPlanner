@@ -1,5 +1,7 @@
-
 namespace DietPlanner.API;
+
+using Microsoft.AspNetCore.Builder;
+using DietPlanner.Services;
 
 public class Program
 {
@@ -12,6 +14,7 @@ public class Program
         builder.Services.AddControllers();        
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddData(builder.Configuration);
 
         var app = builder.Build();
 

@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DietPlanner.Contracts\DietPlanner.Contracts.csproj" />
     <ProjectReference Include="..\DietPlanner.Data\DietPlanner.Data.csproj" />
-    <ProjectReference Include="..\DietPlanner.Repository\DietPlanner.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

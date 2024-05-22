@@ -1,7 +1,7 @@
 ﻿
 using System.Linq.Expressions;
 
-namespace DietPlanner.Repositories.Interfaces;
+namespace DietPlanner.Data.Interfaces;
 public interface IRepository<T> where T : class
 {
     Task<T> GetByIDAsync(long id);

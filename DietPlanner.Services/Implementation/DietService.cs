@@ -1,14 +1,14 @@
 ﻿using DietPlanner.Contracts.Models;
 using DietPlanner.Data.Models;
-using DietPlanner.Repositories.Interfaces;
+using DietPlanner.Data.Interfaces;
 using DietPlanner.Services.Interfaces;
 
 namespace DietPlanner.Services.Implementation;
-public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository<ApplicationUser> userRespository) : IDietService
+public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository<ApplicationUser> userRepository) : IDietService
 {
     public async Task<bool> AddEntry(AddDietEntry entry)
     {
-        var user = await userRespository.GetByIDAsync(entry.UserID);
+        var user = await userRepository.GetByIDAsync(entry.UserID);
 
         if (user == null)
         {
@@ -30,7 +30,7 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
 
     public async Task<bool> DeleteEntry(DeleteEntry entry)
     {
-        var user = await userRespository.GetByIDAsync(entry.UserID);
+        var user = await userRepository.GetByIDAsync(entry.UserID);
 
         if (user == null)
         {

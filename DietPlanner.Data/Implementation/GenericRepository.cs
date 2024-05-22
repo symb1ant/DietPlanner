@@ -1,4 +1,4 @@
-﻿using DietPlanner.Repositories.Interfaces;
+﻿using DietPlanner.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
