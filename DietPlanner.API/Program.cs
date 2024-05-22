@@ -2,6 +2,8 @@ namespace DietPlanner.API;
 
 using Microsoft.AspNetCore.Builder;
 using DietPlanner.Services;
+using DietPlanner.Services.Interfaces;
+using DietPlanner.Services.Implementation;
 
 public class Program
 {
@@ -9,16 +11,16 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-
         builder.Services.AddControllers();        
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddData(builder.Configuration);
 
+        builder.Services.AddScoped<IMealTypeService, MealTypeService>();
+        builder.Services.AddScoped<IDietService, DietService>();
+
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -26,10 +28,7 @@ public class Program
         }
 
         app.UseAuthorization();
-
-
         app.MapControllers();
-
         app.Run();
     }
 }
