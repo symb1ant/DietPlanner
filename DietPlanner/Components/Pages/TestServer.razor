@@ -1,0 +1,75 @@
+﻿@page "/TestServer"
+@rendermode InteractiveServer
+@using DietPlanner.Client.Common
+@using DietPlanner.Contracts.Models
+@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+@inject HttpClient Http
+@inject ApiSettings ApiSettings
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@attribute [Authorize]
+
+<h3>TestPage</h3>
+
+<AuthorizeView>
+
+    <Authorized>
+
+        @if (fooddiary == null)
+        {
+            <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+        }
+        else
+        {
+            if (fooddiary.Any())
+            {
+                <MudTable Items="fooddiary" Hover="true" SortLabel="Sort By" Elevation="0">
+                    <HeaderContent>
+                        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ViewDietEntry, object>(x=>x.Date)">Date</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.MealName)">Meal</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Food</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Calories</MudTableSortLabel></MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="results">
+                        <MudTd DataLabel="Date">@results.Date.Date</MudTd>
+                        <MudTd DataLabel="Meal">@results.MealName</MudTd>
+                        <MudTd DataLabel="Food">@results.FoodName</MudTd>
+                        <MudTd DataLabel="Calories">@results.Calories</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+                    </PagerContent>
+                </MudTable>
+            }
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+
+</AuthorizeView>
+
+
+
+@code {
+
+    private List<ViewDietEntry> fooddiary = new List<ViewDietEntry>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        if (authState.User != null)
+        {
+            var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var url = $"{ApiSettings.ApiBaseAddress}/api/diet/index/{userId}";
+
+            fooddiary = await Http.GetFromJsonAsync<List<ViewDietEntry>>(url);
+
+        }
+    }
+}

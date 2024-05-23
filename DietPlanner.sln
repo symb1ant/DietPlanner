@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner.Contracts", "Di
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner.API", "DietPlanner.API\DietPlanner.API.csproj", "{EF4B2A1E-9FD4-4969-8EBE-9733875BA03F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner.UI", "DietPlanner.UI\DietPlanner.UI.csproj", "{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,18 @@ Global
 		{EF4B2A1E-9FD4-4969-8EBE-9733875BA03F}.Release|x64.Build.0 = Release|Any CPU
 		{EF4B2A1E-9FD4-4969-8EBE-9733875BA03F}.Release|x86.ActiveCfg = Release|Any CPU
 		{EF4B2A1E-9FD4-4969-8EBE-9733875BA03F}.Release|x86.Build.0 = Release|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Debug|x64.Build.0 = Debug|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Debug|x86.Build.0 = Debug|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Release|x64.ActiveCfg = Release|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Release|x64.Build.0 = Release|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Release|x86.ActiveCfg = Release|Any CPU
+		{F2D85585-EC6A-41BB-B489-E5D834D3E3A2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using DietPlanner.Client.Pages;
-using DietPlanner.Components;
-using DietPlanner.Components.Account;
+using DietPlanner.UI.Components;
+using DietPlanner.UI.Components.Account;
 using DietPlanner.Data;
 using DietPlanner.Data.Models;
 using MudBlazor.Services;
-using DietPlanner.Client.Common;
+using DietPlanner.UI.Common;
 
-namespace DietPlanner;
+namespace DietPlanner.UI;
 
 public class Program
 {
@@ -18,15 +17,15 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        builder.Services.AddRazorComponents()            
-            .AddInteractiveWebAssemblyComponents();
+        builder.Services.AddRazorComponents()
+            .AddInteractiveServerComponents();
 
-        builder.Services.AddMudServices();
+		builder.Services.AddMudServices();
 
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddScoped<IdentityUserAccessor>();
         builder.Services.AddScoped<IdentityRedirectManager>();
-        builder.Services.AddScoped<AuthenticationStateProvider, PersistingServerAuthenticationStateProvider>();
+        builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
         var apiSettings = builder.Configuration.GetSection("ApiBaseAddress").Value;
         builder.Services.AddSingleton(new ApiSettings { ApiBaseAddress = apiSettings });
@@ -51,24 +50,18 @@ public class Program
             .AddSignInManager()
             .AddDefaultTokenProviders();
 
-        builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+        builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();        
 
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            db.Database.Migrate();
-        }
-
+        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
-            app.UseWebAssemblyDebugging();
             app.UseMigrationsEndPoint();
         }
         else
         {
-            app.UseExceptionHandler("/Error");
+            app.UseExceptionHandler("/Error");            
             app.UseHsts();
         }
 
@@ -77,8 +70,8 @@ public class Program
         app.UseStaticFiles();
         app.UseAntiforgery();
 
-        app.MapRazorComponents<App>()            
-            .AddInteractiveWebAssemblyRenderMode()            
+        app.MapRazorComponents<App>()
+            .AddInteractiveServerRenderMode();
 
         app.MapAdditionalIdentityEndpoints();
 

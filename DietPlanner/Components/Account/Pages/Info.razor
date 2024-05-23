@@ -3,6 +3,7 @@
 @using DietPlanner.Data.Models
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
 @inject UserManager<ApplicationUser> UserManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -27,14 +28,16 @@
             <p>Loading...</p>
         }
 
-        @* <p> *@
-@*             User ID: @context.User.Claims.FirstOrDefault(p => p.Type == "nameidentifier").Value</p> *@
+        <p>
+            User ID: @context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+        </p>
 
 
         @foreach (var item in context.User.Claims)
         {
             <p>
                 <b>@item.Type.ToString()</b> : @item.Value
+
 
             </p>
         }
