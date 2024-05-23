@@ -28,9 +28,13 @@ public class Program
         builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
         var apiSettings = builder.Configuration.GetSection("ApiBaseAddress").Value;
-        builder.Services.AddSingleton(new ApiSettings { ApiBaseAddress = apiSettings });
+        var maxCalories = Convert.ToInt16(builder.Configuration.GetSection("MaxCalories").Value);
+        
+        builder.Services.AddSingleton(new ApiSettings { ApiBaseAddress = apiSettings, MaxCalories = maxCalories });
 
         builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiSettings) });
+
+        builder.Services.AddScoped<MealTypeService>();
 
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication(options =>

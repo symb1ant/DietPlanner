@@ -1,7 +1,8 @@
-﻿@page "/Test"
+﻿@page "/Diary"
 @rendermode InteractiveServer
 @using DietPlanner.UI.Common
 @using DietPlanner.Contracts.Models
+@using DietPlanner.UI.Components.Account.Shared
 @using Microsoft.AspNetCore.Authorization
 @using System.Security.Claims
 @inject HttpClient Http
@@ -11,11 +12,15 @@
 
 @attribute [Authorize]
 
-<h3>TestPage</h3>
+<h3>Your Food Diary for Today (@todaysDate.ToShortDateString()}</h3>
 
 <AuthorizeView>
-
     <Authorized>
+      
+        <AddFood></AddFood>
+        
+        <h5>Here's what you've tracked so far today:</h5>
+        
 
         @if (fooddiary == null)
         {
@@ -27,22 +32,39 @@
             {
                 <MudTable Items="fooddiary" Hover="true" SortLabel="Sort By" Elevation="0">
                     <HeaderContent>
-                        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ViewDietEntry, object>(x=>x.Date)">Date</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ViewDietEntry, object>(x=>x.Date)">Time Logged</MudTableSortLabel></MudTh>
                         <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.MealName)">Meal</MudTableSortLabel></MudTh>
                         <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Food</MudTableSortLabel></MudTh>
                         <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Calories</MudTableSortLabel></MudTh>
                     </HeaderContent>
                     <RowTemplate Context="results">
-                        <MudTd DataLabel="Date">@results.Date.Date</MudTd>
+                        <MudTd DataLabel="Date">@results.Date.ToShortTimeString()</MudTd>
                         <MudTd DataLabel="Meal">@results.MealName</MudTd>
                         <MudTd DataLabel="Food">@results.FoodName</MudTd>
                         <MudTd DataLabel="Calories">@results.Calories</MudTd>
                     </RowTemplate>
                     <PagerContent>
-                        <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+                        <MudTablePager PageSizeOptions="new int[]{10, 25}" />
                     </PagerContent>
                 </MudTable>
             }
+        }
+
+        @if (totalCalories != 0)
+        {
+
+            @if (calorieDeficit > 0)
+            {
+                <MudAlert Severity="Severity.Success">You have @calorieDeficit calories left to eat today.</MudAlert>
+            }
+            else
+            {
+                <MudAlert Severity="Severity.Warning">You have exceeded your calorie limit for today by @Math.Abs(calorieDeficit) calories</MudAlert>
+            }
+        }
+        else
+        {
+            <MudAlert Severity="Severity.Info">You have not entered any food for today.</MudAlert>
         }
     </Authorized>
 
@@ -57,19 +79,31 @@
 @code {
 
     private List<ViewDietEntry> fooddiary = new List<ViewDietEntry>();
+    private DateTime todaysDate = DateTime.Now.Date;
+    
+    private int totalCalories = 0;
+    private int calorieDeficit = 0;
+    private int calorieLimit;
 
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        calorieLimit = ApiSettings.MaxCalories;
 
         if (authState.User != null)
         {
+
             var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var diaryUrl = $"{ApiSettings.ApiBaseAddress}/api/diet/index/{userId}/{todaysDate.ToString("yyyy-MM-dd")}";
+            fooddiary = await Http.GetFromJsonAsync<List<ViewDietEntry>>(diaryUrl);
 
-            var url = $"{ApiSettings.ApiBaseAddress}/api/diet/index/{userId}";
-
-            fooddiary = await Http.GetFromJsonAsync<List<ViewDietEntry>>(url);
-
+            if (fooddiary.Any())
+            {
+                totalCalories = fooddiary.Sum(x => x.Calories);
+                calorieDeficit = calorieLimit - totalCalories;
+            }
         }
+
+
     }
 }

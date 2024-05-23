@@ -1,0 +1,96 @@
+﻿@using DietPlanner.Contracts.Models
+@using DietPlanner.UI.Common
+@using System.Security.Claims
+@inject MealTypeService MealTypeService
+@inject ApiSettings ApiSettings
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<MudPaper Class="pa-4 m-4">
+    <h5>Add a new entry to your food diary</h5>
+    @if (MealTypeService.Data == null || MealTypeService.Data.Count == 0)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <MudForm @ref="addFoodForm" @bind-IsValid="@success" @bind-Errors="@errors">
+            <MudRadioGroup @bind-Value="@selectedMeal" Required="true" RequiredError="Please enter when you ate your meal">
+
+                @foreach (var item in MealTypeService.Data)
+                {
+                    <MudRadio Value="@(item.Id)" Color="Color.Primary">@item.Name</MudRadio>
+                }
+
+            </MudRadioGroup>
+            <MudTextField @bind-Value="@foodName" T="string" Label="What did you have to eat?" Required="true" RequiredError="Please enter what you had to eat" />
+            <MudTextField @bind-Value="@calories" T="int" Label="How many calories" Required="true" RequiredError="Please enter the number of calories" />
+
+            <div class="d-flex mt-4 mb-4">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="mr-auto" OnClick="(() => AddEntry())">Add Food</MudButton>
+            </div>
+        </MudForm>
+
+        @if (errors.Length > 0)
+        {
+            <MudAlert Severity="Severity.Error">
+                @foreach (var error in errors)
+                {
+                    <p>@error</p>
+                }
+            </MudAlert>
+        }
+    }
+
+</MudPaper>
+
+@code {
+
+    private bool success;
+    private string[] errors = { };
+    private MudForm addFoodForm;
+    private string foodName;
+    private int calories;
+
+    private long selectedMeal;
+
+    List<string> meals = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await MealTypeService.LoadDataAsync(ApiSettings.ApiBaseAddress);
+    }
+
+    public async Task AddEntry()
+    {
+        await addFoodForm.Validate();
+
+        if (addFoodForm.IsValid)
+        {
+            var context = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var entry = new AddDietEntry
+                {
+                    UserID = userId,
+                    MealTypeID = selectedMeal,
+                    FoodName = foodName,
+                    Calories = calories,
+                    Date = DateTime.Now
+                };
+
+            var response = await Http.PostAsJsonAsync($"{ApiSettings.ApiBaseAddress}/api/diet", entry);
+
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("diary", true);
+            }
+            else
+            {
+                errors = new string[] { "An error occurred while adding the entry. Please try again." };
+            }
+        }
+    }
+
+}
