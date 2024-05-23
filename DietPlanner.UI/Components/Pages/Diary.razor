@@ -16,11 +16,28 @@
 
 <AuthorizeView>
     <Authorized>
-      
+
         <AddFood></AddFood>
-        
+
         <h5>Here's what you've tracked so far today:</h5>
-        
+
+        @if (totalCalories != 0)
+        {
+
+            @if (calorieDeficit > 0)
+            {
+                <MudAlert Severity="Severity.Success">You have @calorieDeficit calories left to eat today.</MudAlert>
+            }
+            else
+            {
+                <MudAlert Severity="Severity.Warning">You have exceeded your calorie limit for today by @Math.Abs(calorieDeficit) calories</MudAlert>
+            }
+        }
+        else
+        {
+            <MudAlert Severity="Severity.Info">You have not entered any food for today.</MudAlert>
+        }
+
 
         @if (fooddiary == null)
         {
@@ -50,37 +67,17 @@
             }
         }
 
-        @if (totalCalories != 0)
-        {
-
-            @if (calorieDeficit > 0)
-            {
-                <MudAlert Severity="Severity.Success">You have @calorieDeficit calories left to eat today.</MudAlert>
-            }
-            else
-            {
-                <MudAlert Severity="Severity.Warning">You have exceeded your calorie limit for today by @Math.Abs(calorieDeficit) calories</MudAlert>
-            }
-        }
-        else
-        {
-            <MudAlert Severity="Severity.Info">You have not entered any food for today.</MudAlert>
-        }
     </Authorized>
-
     <NotAuthorized>
         <RedirectToLogin />
     </NotAuthorized>
-
 </AuthorizeView>
-
-
 
 @code {
 
     private List<ViewDietEntry> fooddiary = new List<ViewDietEntry>();
     private DateTime todaysDate = DateTime.Now.Date;
-    
+
     private int totalCalories = 0;
     private int calorieDeficit = 0;
     private int calorieLimit;
