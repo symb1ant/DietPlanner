@@ -2,10 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner", "DietPlanner\DietPlanner.csproj", "{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner.Client", "DietPlanner.Client\DietPlanner.Client.csproj", "{FD1F3E2A-3425-44D0-86FF-986E5E665414}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner.Data", "DietPlanner.Data\DietPlanner.Data.csproj", "{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietPlanner.Services", "DietPlanner.Services\DietPlanner.Services.csproj", "{8F9A2C5F-F0D6-4170-9259-AFC60A4D76C8}"
@@ -26,30 +22,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Debug|x64.Build.0 = Debug|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Debug|x86.Build.0 = Debug|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Release|x64.ActiveCfg = Release|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Release|x64.Build.0 = Release|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Release|x86.ActiveCfg = Release|Any CPU
-		{6FA5D07C-A64E-42F7-9A58-12DFCC9008B2}.Release|x86.Build.0 = Release|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Debug|x64.Build.0 = Debug|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Debug|x86.Build.0 = Debug|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|x64.ActiveCfg = Release|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|x64.Build.0 = Release|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|x86.ActiveCfg = Release|Any CPU
-		{FD1F3E2A-3425-44D0-86FF-986E5E665414}.Release|x86.Build.0 = Release|Any CPU
 		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD63FE4F-BC50-45B7-A0A0-FC203D3CF99B}.Debug|x64.ActiveCfg = Debug|Any CPU
