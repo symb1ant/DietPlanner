@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using DietPlanner.Services;
 using DietPlanner.Services.Interfaces;
 using DietPlanner.Services.Implementation;
+using DietPlanner.API.MiddleWare;
 
 public class Program
 {
@@ -20,6 +21,8 @@ public class Program
         builder.Services.AddScoped<IDietService, DietService>();
 
         var app = builder.Build();
+
+        app.UseMiddleware<ExceptionHandler>();
 
         if (app.Environment.IsDevelopment())
         {

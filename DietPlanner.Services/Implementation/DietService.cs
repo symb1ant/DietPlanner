@@ -3,12 +3,17 @@ using DietPlanner.Data.Models;
 using DietPlanner.Data.Interfaces;
 using DietPlanner.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using DietPlanner.Services.Validators;
+using FluentValidation;
 
 namespace DietPlanner.Services.Implementation;
 public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository<ApplicationUser> userRepository) : IDietService
 {
     public async Task<bool> AddEntry(AddDietEntry entry)
     {
+        var addDietEntryValidator = new AddDietEntryValidator();
+        await addDietEntryValidator.ValidateAndThrowAsync(entry);
+
         var user = await userRepository.GetByIDAsync(entry.UserID);
 
         if (user == null)
@@ -70,14 +75,14 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
         var startDate = date.Date;
         var endDate = date.Date.AddDays(1).AddSeconds(-1);
 
-        var entries = await dietEntryRepository.GetAllAsync(x => x.UserId == userId && x.Date >= startDate && x.Date <= endDate, include: x=> x.Include(e => e.MealType));
+        var entries = await dietEntryRepository.GetAllAsync(x => x.UserId == userId && x.Date >= startDate && x.Date <= endDate, include: x => x.Include(e => e.MealType));
 
         return entries.OrderBy(x => x.Date).Select(x => new ViewDietEntry
         {
             ID = x.Id,
             FoodName = x.Food,
             Calories = x.Calories,
-            Date = x.Date,            
+            Date = x.Date,
             MealName = x.MealType.Name.ToString()
 
         }).ToList();
@@ -118,7 +123,7 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
 
     public async Task<List<ViewDietSummary>> GetSummaryByUser(string userId)
     {
-        
+
         var entries = await dietEntryRepository.GetAllAsync(x => x.UserId == userId);
 
         var summaries = entries.GroupBy(x => x.Date.Date)
@@ -135,6 +140,9 @@ public class DietService(IRepository<DietEntry> dietEntryRepository, IRepository
 
     public async Task<bool> UpdateEntry(UpdateDietEntry entry)
     {
+        var updateDietEntryValidator = new UpdateDietEntryValidator();
+        await updateDietEntryValidator.ValidateAndThrowAsync(entry);
+
         var entrytoUpdate = await dietEntryRepository.GetByIDAsync(entry.ID);
 
         if (entrytoUpdate == null)

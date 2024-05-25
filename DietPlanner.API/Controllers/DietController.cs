@@ -1,9 +1,14 @@
 ﻿using DietPlanner.Contracts.Models;
 using DietPlanner.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DietPlanner.API.Controllers;
 [Route("api/[controller]")]
+[SwaggerResponse(StatusCodes.Status200OK, "Success")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid data sent to the api ")]
+[SwaggerResponse(StatusCodes.Status404NotFound, "Cannot find the data requested")]
+[SwaggerResponse(StatusCodes.Status500InternalServerError, "Internal Server Error Logged")]
 [ApiController]
 public class DietController(IDietService dietService) : ControllerBase
 {
