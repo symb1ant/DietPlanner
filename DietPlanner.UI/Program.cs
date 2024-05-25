@@ -30,9 +30,8 @@ public class Program
         var apiSettings = builder.Configuration.GetSection("ApiBaseAddress").Value;
         var maxCalories = Convert.ToInt16(builder.Configuration.GetSection("MaxCalories").Value);
         
-        builder.Services.AddSingleton(new ApiSettings { ApiBaseAddress = apiSettings, MaxCalories = maxCalories });
-
-        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiSettings) });
+        builder.Services.AddSingleton(new ApiSettings { ApiBaseAddress = apiSettings!, MaxCalories = maxCalories });
+        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiSettings!) });
 
         builder.Services.AddScoped<MealTypeService>();
 
@@ -52,8 +51,6 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddSignInManager()
             .AddDefaultTokenProviders();
-
-        builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();        
 
         var app = builder.Build();
 

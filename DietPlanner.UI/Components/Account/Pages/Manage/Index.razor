@@ -14,11 +14,13 @@
 <StatusMessage />
 
 
-<MudText Typo="Typo.h5">Profile</MudText>
-<MudText Typo="Typo.body1" Paragraph="true">Update your profile information.</MudText>
+
 
 <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
     <DataAnnotationsValidator />
+    <MudText Typo="Typo.h5">Update Phone Number</MudText>
+    <MudText Typo="Typo.body1" Paragraph="true">Use this form to update your phone number.</MudText>
+    <hr />
     <ValidationSummary class="text-danger" role="alert" />
     <div class="form-floating mb-3">
         <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled />
@@ -29,7 +31,7 @@
         <label for="phone-number" class="form-label">Phone number</label>
         <ValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
     </div>
-    <button type="submit" class="btn btn-lg btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
 </EditForm>
 
 

@@ -7,7 +7,7 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<MudPaper Class="pa-4 m-4">
+<MudPaper Class="pa-4 m-4" Outlined="true">
     <h5>Add a new entry to your food diary</h5>
     @if (MealTypeService.Data == null || MealTypeService.Data.Count == 0)
     {

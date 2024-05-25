@@ -5,11 +5,13 @@
 <MudSnackbarProvider />
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" aria-label="Logout" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
         <AuthorizeView>
             <Authorized>
-                <MudIconButton Icon="@Icons.Material.Filled.People" Color="Color.Inherit" Edge="Edge.End" />
+                <MudTooltip Text="Logout">
+                <MudIconButton Icon="@Icons.Material.Filled.Logout"  Color="Color.Inherit" Edge="Edge.End" />
+                </MudTooltip>
             </Authorized>
         </AuthorizeView>
     </MudAppBar>
