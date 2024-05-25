@@ -17,7 +17,7 @@
     {
         <MudForm @ref="addFoodForm" @bind-IsValid="@success" @bind-Errors="@errors">
 
-            <MudSelect Label="Meal Time" HelperText="What meal was this?" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" @bind-Value="@selectedMeal" Required="true" RequiredError="Please enter when you ate your meal">
+            <MudSelect Label="Meal Time" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" @bind-Value="@selectedMeal" Required="true" RequiredError="Please enter when you ate your meal">
 
                 @foreach (var item in MealTypeService.Data)
                 {
@@ -62,8 +62,6 @@
     private int calories;
 
     private long selectedMeal = 1;
-
-    List<string> meals = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {

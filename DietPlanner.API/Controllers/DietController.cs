@@ -14,6 +14,7 @@ public class DietController(IDietService dietService) : ControllerBase
 {
 
     [HttpPost]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<bool>> Post(AddDietEntry entry)
     {
         var result = await dietService.AddEntry(entry);
@@ -27,6 +28,7 @@ public class DietController(IDietService dietService) : ControllerBase
     }
 
     [HttpPatch]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<bool>> Patch(UpdateDietEntry entry)
     {
         var result = await dietService.UpdateEntry(entry);
@@ -39,7 +41,8 @@ public class DietController(IDietService dietService) : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete]
+    [HttpPost("delete")]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<bool>> Delete(DeleteEntry entry)
     {
         var result = await dietService.DeleteEntry(entry);
@@ -53,6 +56,7 @@ public class DietController(IDietService dietService) : ControllerBase
     }
 
     [HttpGet("index/{userid}/{date}")]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<List<ViewDietEntry>>> Index(string userid, DateTime date)
     {
         var result = await dietService.GetEntriesByDate(userid, date);
@@ -60,6 +64,7 @@ public class DietController(IDietService dietService) : ControllerBase
     }
 
     [HttpGet("index/{userid}")]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<List<ViewDietEntry>>> Index(string userid)
     {
         var result = await dietService.GetEntries(userid);
@@ -67,6 +72,7 @@ public class DietController(IDietService dietService) : ControllerBase
     }
 
     [HttpGet("summary/{userid}")]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<List<ViewDietSummary>>> GetSummary(string userid)
     {
         var result = await dietService.GetSummaryByUser(userid);
@@ -74,6 +80,7 @@ public class DietController(IDietService dietService) : ControllerBase
     }
 
     [HttpGet("summary/{userid}/{date}")]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<List<ViewDietSummary>>> GetSummary(string userid, DateTime date)
     {
         var result = await dietService.GetSummaryByDate(userid, date);
@@ -82,6 +89,7 @@ public class DietController(IDietService dietService) : ControllerBase
 
 
     [HttpGet("get/{id}")]
+    [SwaggerOperation(Summary = "Todo", Description = "Todo")]
     public async Task<ActionResult<ViewDietEntry>> Get(int id)
     {
         var result = await dietService.GetEntry(id);

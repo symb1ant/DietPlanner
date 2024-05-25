@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace DietPlanner.Contracts.Models;
 public class DeleteEntry
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public string UserID { get; set; }
 }

@@ -8,6 +8,7 @@
 @inject ApiSettings ApiSettings
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
 
 @attribute [Authorize]
 
@@ -20,60 +21,73 @@
 
         <MudPaper Class="pa-4 m-4" Outlined="true">
 
-        <h5>Here's what you've tracked so far today:</h5>
+            <h5>Here's what you've tracked so far today:</h5>
 
-        @if (totalCalories != 0)
-        {
-
-            @if (calorieDeficit > 0)
+            @if (totalCalories != 0)
             {
-                <MudAlert Severity="Severity.Success">You have @calorieDeficit calories left to eat today.</MudAlert>
+
+                @if (calorieDeficit > 0)
+                {
+                    <MudAlert Severity="Severity.Success">You have @calorieDeficit calories left to eat today.</MudAlert>
+                }
+                else
+                {
+                    <MudAlert Severity="Severity.Warning">You have exceeded your calorie limit for today by @Math.Abs(calorieDeficit) calories</MudAlert>
+                }
             }
             else
             {
-                <MudAlert Severity="Severity.Warning">You have exceeded your calorie limit for today by @Math.Abs(calorieDeficit) calories</MudAlert>
+                <MudAlert Severity="Severity.Info">You have not entered any food for today.</MudAlert>
             }
-        }
-        else
-        {
-            <MudAlert Severity="Severity.Info">You have not entered any food for today.</MudAlert>
-        }
 
-
-        @if (fooddiary == null)
-        {
-            <MudProgressCircular Color="Color.Default" Indeterminate="true" />
-        }
-        else
-        {
-            if (fooddiary.Any())
+            @if (fooddiary == null)
             {
-                <MudTable Items="fooddiary" Hover="true" SortLabel="Sort By" Elevation="0">
-                    <HeaderContent>
-                        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ViewDietEntry, object>(x=>x.Date)">Time Logged</MudTableSortLabel></MudTh>
-                        <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.MealName)">Meal</MudTableSortLabel></MudTh>
-                        <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Food</MudTableSortLabel></MudTh>
-                        <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Calories</MudTableSortLabel></MudTh>
-                    </HeaderContent>
-                    <RowTemplate Context="results">
-                        <MudTd DataLabel="Date">@results.Date.ToShortTimeString()</MudTd>
-                        <MudTd DataLabel="Meal">@results.MealName</MudTd>
-                        <MudTd DataLabel="Food">@results.FoodName</MudTd>
-                        <MudTd DataLabel="Calories">@results.Calories</MudTd>
-                    </RowTemplate>
-                    <PagerContent>
-                        <MudTablePager PageSizeOptions="new int[]{10, 25}" />
-                    </PagerContent>
-                </MudTable>
+                <MudProgressCircular Color="Color.Default" Indeterminate="true" />
             }
-        }
+            else
+            {
+                if (fooddiary.Any())
+                {
+                    <MudTable Items="fooddiary" Hover="true" SortLabel="Sort By" Elevation="0">
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ViewDietEntry, object>(x=>x.Date)">Time Logged</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.MealName)">Meal</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Food</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<ViewDietEntry, object>(x=>x.FoodName)">Calories</MudTableSortLabel></MudTh>
+                            <MudTh></MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="results">
+                            <MudTd DataLabel="Date">@results.Date.ToShortTimeString()</MudTd>
+                            <MudTd DataLabel="Meal">@results.MealName</MudTd>
+                            <MudTd DataLabel="Food">@results.FoodName</MudTd>
+                            <MudTd DataLabel="Calories">@results.Calories</MudTd>
+                            <MudTd Style="text-align:right">
+                                <MudButton StartIcon="@Icons.Material.Filled.DeleteForever" Variant="Variant.Filled" Color="Color.Error" OnClick="(() => ShowDeleteMessage(results.ID))"> Delete
+                                </MudButton>
+                            </MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager PageSizeOptions="new int[]{10, 25}" />
+                        </PagerContent>
+                    </MudTable>
+                }
+            }
 
-            </MudPaper>
+        </MudPaper>
     </Authorized>
     <NotAuthorized>
         <RedirectToLogin />
     </NotAuthorized>
 </AuthorizeView>
+
+<MudMessageBox @ref="mbox" Title="Delete Entry" CancelText="Cancel">
+    <MessageContent>
+        Are you sure you want to delete this entry?
+    </MessageContent>
+    <YesButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever">Delete</MudButton>
+    </YesButton>
+</MudMessageBox>
 
 @code {
 
@@ -83,6 +97,9 @@
     private int totalCalories = 0;
     private int calorieDeficit = 0;
     private int calorieLimit;
+    private long entryId;
+
+    private MudMessageBox mbox { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -91,7 +108,6 @@
 
         if (authState.User != null)
         {
-
             var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var diaryUrl = $"{ApiSettings.ApiBaseAddress}/api/diet/index/{userId}/{todaysDate.ToString("yyyy-MM-dd")}";
             fooddiary = await Http.GetFromJsonAsync<List<ViewDietEntry>>(diaryUrl);
@@ -102,7 +118,37 @@
                 calorieDeficit = calorieLimit - totalCalories;
             }
         }
-
-
     }
+
+    protected async Task ShowDeleteMessage(long id)
+    {
+        bool? result = await mbox.Show();
+        if (result == true)
+        {
+            entryId = id;
+            StateHasChanged();
+            await DeleteEntry();
+        }
+    }
+
+    protected async Task DeleteEntry()
+    {
+        if (entryId == 0)
+        {
+            return;
+        }
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var entry = new DeleteEntry {  Id = entryId, UserID = userId };
+        var url = $"{ApiSettings.ApiBaseAddress}/api/diet/delete";
+        
+        var response = await Http.PostAsJsonAsync(url, entry);
+
+        if (response.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo("diary", true);
+        }
+    }
+
 }

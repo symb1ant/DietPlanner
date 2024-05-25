@@ -31,9 +31,8 @@ public class Program
         var maxCalories = Convert.ToInt16(builder.Configuration.GetSection("MaxCalories").Value);
         
         builder.Services.AddSingleton(new ApiSettings { ApiBaseAddress = apiSettings!, MaxCalories = maxCalories });
-        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiSettings!) });
-
-        builder.Services.AddScoped<MealTypeService>();
+        builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(apiSettings!) });
+        builder.Services.AddSingleton<MealTypeService>();
 
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication(options =>
