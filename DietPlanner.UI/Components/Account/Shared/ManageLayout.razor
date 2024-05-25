@@ -1,17 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @layout AccountLayout
 
-<h1>Manage your profile</h1>
-
-<div>
-    <p>Use the options below to manage your profile</p>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <ManageNavMenu />
-        </div>
-        <div class="col-md-9">
-            @Body
-        </div>
-    </div>
-</div>
+<MudContainer>
+        @Body
+</MudContainer>

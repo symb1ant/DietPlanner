@@ -39,8 +39,7 @@ public class Program
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication(options =>
             {
-                options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;                
             })
             .AddIdentityCookies();
 

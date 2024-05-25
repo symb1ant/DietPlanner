@@ -16,14 +16,22 @@
     else
     {
         <MudForm @ref="addFoodForm" @bind-IsValid="@success" @bind-Errors="@errors">
-            <MudRadioGroup @bind-Value="@selectedMeal" Required="true" RequiredError="Please enter when you ate your meal">
+
+            <MudSelect Label="Meal Time" HelperText="What meal was this?" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" @bind-Value="@selectedMeal" Required="true" RequiredError="Please enter when you ate your meal">
 
                 @foreach (var item in MealTypeService.Data)
                 {
-                    <MudRadio Value="@(item.Id)" Color="Color.Primary">@item.Name</MudRadio>
-                }
+                    if (item.Id == 1)
+                    {
+                        <MudSelectItem Value="@item.Id">@item.Name</MudSelectItem>
+                    }
+                    else
+                    {
+                        <MudSelectItem Value="@item.Id">@item.Name</MudSelectItem>
+                    }
 
-            </MudRadioGroup>
+                }
+            </MudSelect>
             <MudTextField @bind-Value="@foodName" T="string" Label="What did you have to eat?" Required="true" RequiredError="Please enter what you had to eat" />
             <MudTextField @bind-Value="@calories" T="int" Label="How many calories" Required="true" RequiredError="Please enter the number of calories" />
 
@@ -53,7 +61,7 @@
     private string foodName;
     private int calories;
 
-    private long selectedMeal;
+    private long selectedMeal = 1;
 
     List<string> meals = new List<string>();
 

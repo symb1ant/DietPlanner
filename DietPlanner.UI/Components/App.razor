@@ -17,9 +17,25 @@
 </head>
 
 <body>
-    <Routes />
+    @if (RenderModeForPage is not null)
+    {
+        <Routes @rendermode="@RenderModeForPage" />
+    }
+    else
+    {
+        <Routes />
+    }
     <script src="_framework/blazor.web.js"></script>
 	<script src="_content/MudBlazor/MudBlazor.min.js"></script>
 </body>
 
 </html>
+
+@code {
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/Account")
+        ? null
+        : InteractiveServer;
+}

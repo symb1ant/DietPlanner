@@ -1,5 +1,4 @@
 ﻿@page "/Diary"
-@rendermode InteractiveServer
 @using DietPlanner.UI.Common
 @using DietPlanner.Contracts.Models
 @using DietPlanner.UI.Components.Account.Shared
@@ -18,6 +17,8 @@
     <Authorized>
 
         <AddFood></AddFood>
+
+        <MudPaper Class="pa-4 m-4">
 
         <h5>Here's what you've tracked so far today:</h5>
 
@@ -67,6 +68,7 @@
             }
         }
 
+            </MudPaper>
     </Authorized>
     <NotAuthorized>
         <RedirectToLogin />
