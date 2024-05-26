@@ -3,7 +3,7 @@
 ## Setup Instructions
 
 1. Clone the repository from GitHub and open in Visual Studio 2022.
-2. Ensure that the solutions is set to open 2 startup projects, namely:
+2. Ensure that the solution is set to open 2 startup projects, namely:
     - DietPlanner.API
     - DietPlanner.UI
 
@@ -48,9 +48,17 @@ Below is a breakdown of the layers used in the solution:
 
 This is a WebAPI project containing controller methods to add, update, delete, and view data.
 
-### DietPlanner.Tests
+### DietPlanner.API.Tests
 
 This is an integration test project for the API.
+
+### DietPlanner.API.UnitTests
+
+This is a unit test project for the API.
+
+### DietPlanner.Fakes
+
+This is a fake service layer collection used for testing the API instead of using Moq.
 
 ### DietPlanner.Contracts
 
