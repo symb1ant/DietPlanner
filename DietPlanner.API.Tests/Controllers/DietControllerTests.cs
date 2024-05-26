@@ -180,7 +180,7 @@ public class DietControllerTests
     }
 
     [TestMethod]
-    public async Task PostDietEntry_WhenCalledWithInvalidEntry_ShouldReturnError()
+    public async Task PostDietEntry_WhenCalledWithInvalidEntry_ShouldReturnBadRequest()
     {
         // Arrange
         var testurl = $"/api/diet";
@@ -197,7 +197,7 @@ public class DietControllerTests
         var response = await _httpClient.PostAsJsonAsync(testurl, entry);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [TestMethod]
@@ -222,7 +222,7 @@ public class DietControllerTests
     }
 
     [TestMethod]
-    public async Task UpdateDietEntry_WhenCalledWithInvalidEntry_ShouldReturnError()
+    public async Task UpdateDietEntry_WhenCalledWithInvalidEntry_ShouldReturnBadRequest()
     {
         // Arrange
         var testurl = $"/api/diet";
@@ -239,7 +239,7 @@ public class DietControllerTests
         var response = await _httpClient.PatchAsJsonAsync(testurl, entry);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [TestMethod]
@@ -261,7 +261,7 @@ public class DietControllerTests
     }
 
     [TestMethod]
-    public async Task DeleteDietEntry_WhenCalledWithInvalidEntry_ShouldReturnError()
+    public async Task DeleteDietEntry_WhenCalledWithInvalidEntry_ShouldReturnBadRequest()
     {
         // Arrange
         var testurl = $"/api/diet/delete";
