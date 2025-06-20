@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.API.MiddleWare;
+namespace DietPlanner.API.MiddleWare;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

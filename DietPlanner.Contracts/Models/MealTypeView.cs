@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.Contracts.Models;
+namespace DietPlanner.Contracts.Models;
 public class MealTypeView
 {
     public long Id { get; set; }

@@ -1,4 +1,4 @@
-﻿using DietPlanner.Contracts.Models;
+using DietPlanner.Contracts.Models;
 
 namespace DietPlanner.UI.Common;
 

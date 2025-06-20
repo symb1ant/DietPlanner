@@ -1,4 +1,4 @@
-﻿using DietPlanner.Data.Models;
+using DietPlanner.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DietPlanner.Data.Configurations;

@@ -1,4 +1,4 @@
-﻿using DietPlanner.Data;
+using DietPlanner.Data;
 using DietPlanner.Data.Models;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.API.Tests.Controllers;
+namespace DietPlanner.API.Tests.Controllers;
 
 [TestClass]
 public class MealTypeControllerTests

@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.Services.Tests.Validators;
+namespace DietPlanner.Services.Tests.Validators;
 
 [TestClass]
 public class UpdateDietEntryValidatorTests

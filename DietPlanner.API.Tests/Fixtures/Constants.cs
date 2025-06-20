@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.API.Tests.Fixtures;
+namespace DietPlanner.API.Tests.Fixtures;
 
 internal class Constants
 {

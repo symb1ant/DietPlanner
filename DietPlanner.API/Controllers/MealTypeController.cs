@@ -1,4 +1,4 @@
-﻿using DietPlanner.Data.Models;
+using DietPlanner.Data.Models;
 using DietPlanner.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

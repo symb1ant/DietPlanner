@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.Data.Models;
+namespace DietPlanner.Data.Models;
 public class DietEntry
 {
     public long Id { get; set; }
