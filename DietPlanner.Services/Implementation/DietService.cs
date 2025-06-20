@@ -1,4 +1,4 @@
-﻿using DietPlanner.Contracts.Models;
+using DietPlanner.Contracts.Models;
 using DietPlanner.Data.Interfaces;
 using DietPlanner.Data.Models;
 using DietPlanner.Services.Interfaces;

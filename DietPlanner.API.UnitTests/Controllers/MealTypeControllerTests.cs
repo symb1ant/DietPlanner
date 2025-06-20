@@ -1,4 +1,4 @@
-﻿using DietPlanner.API.Controllers;
+using DietPlanner.API.Controllers;
 using DietPlanner.Fakes.Services;
 using FluentAssertions.Execution;
 using Microsoft.AspNetCore.Mvc;

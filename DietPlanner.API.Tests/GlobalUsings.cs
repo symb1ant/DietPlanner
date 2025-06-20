@@ -1,4 +1,4 @@
-﻿global using DietPlanner.API.Tests.Fixtures;
+global using DietPlanner.API.Tests.Fixtures;
 global using DietPlanner.Contracts.Models;
 global using FluentAssertions;
 global using Microsoft.AspNetCore.Mvc.Testing;

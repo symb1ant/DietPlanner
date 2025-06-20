@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.UI.Common;
+namespace DietPlanner.UI.Common;
 
 public class ApiSettings
 {

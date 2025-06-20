@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.Contracts.Models;
+namespace DietPlanner.Contracts.Models;
 public class ViewDietSummary
 {
     public DateTime Date { get; set; }

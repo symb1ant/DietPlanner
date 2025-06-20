@@ -1,4 +1,4 @@
-﻿using DietPlanner.Contracts.Models;
+using DietPlanner.Contracts.Models;
 using FluentValidation;
 
 namespace DietPlanner.Services.Validators;

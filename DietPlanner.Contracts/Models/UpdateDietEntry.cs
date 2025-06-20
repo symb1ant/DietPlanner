@@ -1,4 +1,4 @@
-﻿namespace DietPlanner.Contracts.Models;
+namespace DietPlanner.Contracts.Models;
 public class UpdateDietEntry
 {
     public long ID { get; set; }
